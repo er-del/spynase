@@ -1,0 +1,20 @@
+{
+  "name": "synapse-ai",
+  "version": "1.0.0",
+  "description": "Synapse — A futuristic local AI assistant interface with real-time neural network visualization",
+  "main": "index.html",
+  "scripts": {
+    "start": "http-server . -p 8080 --cors -c-1",
+    "tunnel": "concurrently --names \"SERVER,TUNNEL\" --prefix-colors \"cyan,magenta\" \"http-server . -p 8080 --cors -c-1\" \"cloudflared tunnel --url http://localhost:8080\"",
+    "dev": "http-server . -p 8080 --cors -c-1 -o"
+  },
+  "keywords": ["ai", "ollama", "neural", "visualization", "llm", "voice"],
+  "author": "er-del",
+  "license": "MIT",
+  "dependencies": {
+    "http-server": "^14.1.1"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
