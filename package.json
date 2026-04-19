@@ -4,15 +4,23 @@
   "description": "Synapse — A futuristic local AI assistant interface with real-time neural network visualization",
   "main": "index.html",
   "scripts": {
-    "start": "http-server . -p 8080 --cors -c-1",
-    "tunnel": "concurrently --names \"SERVER,TUNNEL\" --prefix-colors \"cyan,magenta\" \"http-server . -p 8080 --cors -c-1\" \"cloudflared tunnel --url http://localhost:8080\"",
-    "dev": "http-server . -p 8080 --cors -c-1 -o"
+    "start": "node server.js",
+    "tunnel": "concurrently --names \"SERVER,TUNNEL\" --prefix-colors \"cyan,magenta\" \"node server.js\" \"npx -y cloudflared tunnel --url http://localhost:8080\"",
+    "dev": "node server.js"
   },
-  "keywords": ["ai", "ollama", "neural", "visualization", "llm", "voice"],
+  "keywords": [
+    "ai",
+    "ollama",
+    "neural",
+    "visualization",
+    "llm",
+    "voice"
+  ],
   "author": "er-del",
   "license": "MIT",
   "dependencies": {
-    "http-server": "^14.1.1"
+    "express": "^4.19.2",
+    "http-proxy-middleware": "^3.0.0"
   },
   "devDependencies": {
     "concurrently": "^9.1.2"

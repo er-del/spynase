@@ -5,7 +5,7 @@
  */
 import bus from './event-bus.js';
 
-const OLLAMA_BASE = 'http://localhost:11434';
+const OLLAMA_BASE = ''; // Proxied via server.js
 
 class OllamaClient {
     constructor() {
