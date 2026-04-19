@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Synapse — A futuristic local AI assistant interface with real-time neural network visualization">
+    <title>Synapse — Neural AI Interface</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div id="app">
+        <!-- ─── Header ──────────────────────────────────────────── -->
+        <header class="header">
+            <div class="header__brand">
+                <div class="header__logo">⬡</div>
+                <h1 class="header__title">Synapse</h1>
+            </div>
+            <div class="header__controls">
+                <select id="model-select" class="model-select" aria-label="Select AI Model">
+                    <option value="">Connecting...</option>
+                </select>
+                <button id="voice-mode-btn" class="icon-btn voice-mode-btn" title="Voice Mode" aria-label="Enter Voice Mode">
+                    🎙 Voice
+                </button>
+                <button id="clear-btn" class="icon-btn" title="Clear Chat" aria-label="Clear Chat History">
+                    🗑
+                </button>
+            </div>
+        </header>
+
+        <!-- ─── Main Content ────────────────────────────────────── -->
+        <main class="main-content">
+            <!-- Left Panel: Voice Orb + Chat -->
+            <section class="panel-chat" aria-label="Chat Interface">
+                <div class="orb-container">
+                    <canvas id="orb-canvas"></canvas>
+                    <div id="orb-state-label" class="orb-state-label" data-state="idle">IDLE</div>
+                </div>
+
+                <div id="chat-messages" class="chat-messages" role="log" aria-live="polite">
+                    <!-- Messages rendered here -->
+                </div>
+
+                <div class="chat-input-bar">
+                    <button id="mic-btn" class="icon-btn mic-btn" title="Voice Input" aria-label="Toggle Microphone">
+                        🎙️
+                    </button>
+                    <input
+                        id="chat-input"
+                        class="chat-input"
+                        type="text"
+                        placeholder="Type a message..."
+                        autocomplete="off"
+                        aria-label="Chat message input"
+                    />
+                    <button id="send-btn" class="send-btn" title="Send Message" aria-label="Send Message">
+                        ➤
+                    </button>
+                </div>
+            </section>
+
+            <!-- Right Panel: Neural Graph -->
+            <section class="panel-graph" aria-label="Neural Network Visualization">
+                <canvas id="graph-canvas"></canvas>
+                <div class="graph-label">Neural Activity</div>
+                <div id="graph-stats" class="graph-stats">
+                    Nodes: 0<br>
+                    Intensity: 0%<br>
+                    0.0 tok/s
+                </div>
+            </section>
+        </main>
+
+        <!-- ─── Status Bar ──────────────────────────────────────── -->
+        <footer class="status-bar">
+            <div class="status-bar__left">
+                <div class="status-indicator">
+                    <span id="status-dot" class="status-dot"></span>
+                    <span id="status-text">Connecting to Ollama...</span>
+                </div>
+            </div>
+            <div class="status-bar__right">
+                <span id="model-info">No model selected</span>
+                <span id="token-rate">0.0 tok/s</span>
+            </div>
+        </footer>
+    </div>
+
+    <!-- ─── Voice Mode Overlay (Fullscreen) ─────────────────────── -->
+    <div id="voice-mode-overlay" class="voice-mode-overlay">
+        <div class="voice-mode__escape-hint">ESC to exit</div>
+
+        <div class="voice-mode__sphere-container">
+            <canvas id="voice-sphere-canvas"></canvas>
+        </div>
+
+        <div id="voice-transcript" class="voice-mode__transcript"></div>
+        <div id="voice-status" class="voice-mode__status">Tap the microphone to speak</div>
+
+        <div class="voice-mode__controls">
+            <button id="voice-end-btn" class="voice-mode__text-btn" title="Exit Voice Mode" aria-label="Exit Voice Mode">
+                ✕
+            </button>
+            <button id="voice-mic-btn" class="voice-mode__mic-btn" title="Speak" aria-label="Toggle Microphone">
+                🎤
+            </button>
+            <button class="voice-mode__text-btn" title="Settings" aria-label="Settings" style="visibility:hidden">
+                ⚙
+            </button>
+        </div>
+    </div>
+
+    <!-- ─── Scripts (ES Modules) ────────────────────────────────── -->
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>
