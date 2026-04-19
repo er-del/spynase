@@ -23,9 +23,8 @@
                 <h1 class="header__title">Synapse</h1>
             </div>
             <div class="header__controls">
-                <select id="model-select" class="model-select" aria-label="Select AI Model">
-                    <option value="">Connecting...</option>
-                </select>
+                <input list="model-list" id="model-select" class="model-select" placeholder="Select or type model..." aria-label="Select or type AI Model name">
+                <datalist id="model-list"></datalist>
                 <button id="voice-mode-btn" class="icon-btn voice-mode-btn" title="Voice Mode" aria-label="Enter Voice Mode">
                     🎙 Voice
                 </button>

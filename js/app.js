@@ -50,6 +50,7 @@ class SynapseApp {
         this.dom = {
             // Header
             modelSelect: document.getElementById('model-select'),
+            modelList: document.getElementById('model-list'),
             voiceModeBtn: document.getElementById('voice-mode-btn'),
             clearBtn: document.getElementById('clear-btn'),
 
@@ -146,9 +147,13 @@ class SynapseApp {
             this._addSystemMessage('Conversation cleared.');
         });
 
-        // Model select
+        // Model select or custom input
         this.dom.modelSelect.addEventListener('change', (e) => {
-            ollama.setModel(e.target.value);
+            const selectedModel = e.target.value.trim();
+            if (selectedModel) {
+                ollama.setModel(selectedModel);
+                this.dom.modelInfoText.textContent = `Model: ${selectedModel}`;
+            }
         });
 
         // ─── EventBus listeners ───────────────────────────────────
@@ -216,12 +221,11 @@ class SynapseApp {
     }
 
     _populateModels(models) {
-        this.dom.modelSelect.innerHTML = '<option value="">Select model...</option>';
+        this.dom.modelList.innerHTML = '';
         for (const model of models) {
             const opt = document.createElement('option');
             opt.value = model;
-            opt.textContent = model;
-            this.dom.modelSelect.appendChild(opt);
+            this.dom.modelList.appendChild(opt);
         }
 
         // Auto-select first model
