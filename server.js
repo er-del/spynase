@@ -10,8 +10,11 @@ app.use(express.static(path.join(__dirname, '.')));
 
 // Proxy all requests to /api directly to the local Ollama instance
 app.use('/api', createProxyMiddleware({
-    target: 'http://localhost:11434',
+    target: 'http://127.0.0.1:11434/api',
     changeOrigin: true,
+    pathRewrite: {
+        '^/api': '', // Remove the /api from the incoming request so it appends nicely to target
+    },
     // Disable timeout for long-streaming LLM responses
     proxyTimeout: 0,
     timeout: 0,

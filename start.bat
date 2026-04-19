@@ -67,6 +67,6 @@ echo  └───────────────────────�
 echo.
 
 :: Run server + tunnel together
-call npx concurrently --names "SERVER,TUNNEL" --prefix-colors "cyan,magenta" "npx http-server . -p 8080 --cors -c-1" "npx cloudflared tunnel --url http://localhost:8080"
+call npm run tunnel
 
 pause
