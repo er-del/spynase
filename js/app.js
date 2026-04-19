@@ -145,6 +145,7 @@ class SynapseApp {
             ollama.clearHistory();
             this.dom.chatMessages.innerHTML = '';
             this._addSystemMessage('Conversation cleared.');
+            bus.emit('chat:clear');
         });
 
         // Model select or custom input
