@@ -120,12 +120,32 @@ class SpeechController {
             utterance.pitch = 1.0;
             utterance.volume = 1.0;
 
-            // Try to pick a good voice
+            // Try to pick a high-quality professional voice (prioritize Neural/Online/Premium offline)
             const voices = this.synth.getVoices();
-            const preferred = voices.find(v =>
-                v.name.includes('Google') || v.name.includes('Microsoft') || v.name.includes('Samantha')
-            );
-            if (preferred) utterance.voice = preferred;
+            const voicePreferences = [
+                'Natural',
+                'Online',
+                'Microsoft Aria', // Windows modern neutral voice
+                'Google US English',   // Chrome best offline
+                'Google UK English',
+                'Samantha',       // macOS premium
+                'Ava',            // modern macOS
+                'Google',
+                'Zira'            // Windows legacy acceptable female
+            ];
+            
+            let preferredVoice = null;
+            for (const pref of voicePreferences) {
+                preferredVoice = voices.find(v => v.name.includes(pref) && v.lang.startsWith('en'));
+                if (preferredVoice) break;
+            }
+            
+            // Fallback to any english voice, then just the first available
+            if (!preferredVoice) {
+                preferredVoice = voices.find(v => v.lang.startsWith('en')) || voices[0];
+            }
+
+            if (preferredVoice) utterance.voice = preferredVoice;
 
             this._currentUtterance = utterance;
             this.isSpeaking = true;
